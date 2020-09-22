@@ -1,4 +1,4 @@
-import React, { useState, useC } from "react";
+import React, { useState } from "react";
 import UserKit from "../data/UserKit";
 
 export default function RegisterPage() {
@@ -42,7 +42,7 @@ export default function RegisterPage() {
         onChange={(e) => setEmail(e.target.value)}
       />
       <input
-        type="password"
+        // type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
