@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useC } from "react";
+import UserKit from "../data/UserKit";
 
 export default function RegisterPage() {
   const [firstName, setFirstName] = useState("");
@@ -8,8 +9,17 @@ export default function RegisterPage() {
   const [organisationName, setOrganisationName] = useState("");
   const [organisationKind, setOrganisationKind] = useState("");
 
+  const userKit = new UserKit();
+
   function handleRegister() {
-    console.log("Register Handled");
+    userKit.register(
+      firstName,
+      lastName,
+      email,
+      password,
+      organisationName,
+      organisationKind
+    );
   }
 
   return (
