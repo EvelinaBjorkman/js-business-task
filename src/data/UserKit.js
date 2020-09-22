@@ -25,6 +25,34 @@ export default class {
     });
   }
 
+  async activateUser(uid, token) {
+    const url = `${ROOT_URL}auth/users/activate/`;
+    const payload = { uid, token };
+    return fetch(url, {
+      method: "POST",
+      headers: this.getPublicHeaders(),
+      body: JSON.stringify(payload),
+    });
+  }
+
+  async login(email, password) {
+    const url = `${ROOT_URL}api-token-auth/`;
+    const payload = { email, password };
+    return fetch(url, {
+      method: "POST",
+      headers: this.getPublicHeaders(),
+      body: JSON.stringify(payload),
+    });
+  }
+
+  setToken(token) {
+    localStorage.setItem("BUSINESS_TOKEN", token);
+  }
+
+  getToken() {
+    return localStorage.getItem("BUSINESS_TOKEN");
+  }
+
   getPublicHeaders() {
     return {
       "Content-Type": "application/json",
