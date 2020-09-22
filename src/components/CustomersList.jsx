@@ -15,7 +15,7 @@ export default function CustomersList() {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data.results);
+      // console.log(data.results);
     })
   }
 
