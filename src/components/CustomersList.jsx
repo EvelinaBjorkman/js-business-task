@@ -23,5 +23,5 @@ export default function CustomersList() {
     getCustomerList()
   })
 
-  return <div>Customer List</div>;
+  return <div><h2>Customer List</h2></div>;
 }
