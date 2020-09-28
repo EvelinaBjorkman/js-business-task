@@ -1,27 +1,33 @@
-import React, {useEffect} from "react";
-import UserKit from "../data/UserKit";
+import React, { useContext } from "react";
+
+import { CustomerListContext } from "../contexts/CustomerListContext";
+
+import {
+  TitleSub,
+  DivDark,
+  UnorderedList,
+  LinkStyled,
+} from "../components/Styled";
 
 export default function CustomersList() {
-  const ROOT_URL = "https://frebi.willandskill.eu/";
+  const { customerList } = useContext(CustomerListContext);
 
-  const userKit = new UserKit();
-
-  function getCustomerList() {
-    const url = `${ROOT_URL}api/v1/customers/`;
-    fetch(url, {
-      headers: {
-        "Authorization": `Bearer ${userKit.getToken()}`
-      }
-    })
-    .then(res => res.json())
-    .then(data => {
-      // console.log(data.results);
-    })
-  }
-
-  useEffect(() => {
-    getCustomerList()
-  })
-
-  return <div><h2>Customer List</h2></div>;
+  return (
+    <DivDark>
+      <TitleSub>Customer List</TitleSub>
+      {customerList &&
+        customerList.map((customer) => {
+          return (
+            <UnorderedList key={customer.id}>
+              <li>
+                <LinkStyled to={`/customer/${customer.id}`}>
+                  <b>{customer.name}</b> {customer.organisationNr},{" "}
+                  {customer.reference}
+                </LinkStyled>
+              </li>
+            </UnorderedList>
+          );
+        })}
+    </DivDark>
+  );
 }

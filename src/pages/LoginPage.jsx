@@ -1,6 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import UserKit from "../data/UserKit";
+import {
+  Title,
+  DivDark,
+  UnorderedList,
+  Input,
+  ButtonAdd,
+} from "../components/Styled";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -33,28 +40,43 @@ export default function LoginPage() {
       });
   }
 
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+
   return (
     <div>
       {token && uid ? (
         <div>
-          <h2>Activate Account</h2>
-          <button onClick={handleActivateUser}>Activate User</button>
+          <Title>Activate Account</Title>
+          <div style={{ textAlign: "center" }}>
+            <ButtonAdd onClick={handleActivateUser}>Activate</ButtonAdd>
+          </div>
         </div>
       ) : (
         <div>
-          <h1>Login</h1>
-          <input
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            placeholder="Password"
-            // type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button onClick={handleLogin}>Login</button>
+          <Title>Login</Title>
+          <DivDark>
+            <UnorderedList>
+              <li>
+                <Input
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </li>
+              <li>
+                {" "}
+                <Input
+                  placeholder="Password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </li>
+            </UnorderedList>
+            <ButtonAdd onClick={handleLogin}>Login</ButtonAdd>
+          </DivDark>
         </div>
       )}
     </div>

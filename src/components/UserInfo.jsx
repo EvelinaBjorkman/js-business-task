@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+
 import UserKit from "../data/UserKit";
+import { UserContext } from "../contexts/UserContext";
+
+import { Paragraf } from "../components/Styled";
 
 export default function UserInfo() {
-  const ROOT_URL = "https://frebi.willandskill.eu/";
-  
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const { email, setEmail } = useContext(UserContext);
+  const { firstName, setFirstName } = useContext(UserContext);
+  const { lastName, setLastName } = useContext(UserContext);
 
   const userKit = new UserKit();
 
   function getUserInfo() {
-    const url = `${ROOT_URL}api/v1/me/`;
-    fetch(url, {
-      headers: {
-        Authorization: `Bearer ${userKit.getToken()}`,
-      },
-    })
+    userKit
+      .getUserInfo()
       .then((res) => res.json())
       .then((data) => {
         setFirstName(data.firstName);
@@ -27,14 +25,14 @@ export default function UserInfo() {
 
   useEffect(() => {
     getUserInfo();
-  });
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div>
-      <p>
-        {firstName} {lastName}
-      </p>
-      <p>{email}</p>
+      <Paragraf>Logged in as:</Paragraf>
+      <Paragraf><b>{firstName} {lastName}</b></Paragraf>
+      <Paragraf><b>{email}</b></Paragraf>
     </div>
   );
 }

@@ -45,6 +45,15 @@ export default class {
     });
   }
 
+  async getUserInfo() {
+    const url = `${ROOT_URL}api/v1/me/`;
+    return fetch(url, {
+      headers: {
+        Authorization: `Bearer ${this.getToken()}`,
+      },
+    })
+  }
+
   setToken(token) {
     localStorage.setItem("BUSINESS_TOKEN", token);
   }
@@ -58,11 +67,4 @@ export default class {
       "Content-Type": "application/json",
     };
   }
-
-  // getPrivateHeaders() {
-  //   return {
-  //     "Content-Type": "application/json",
-  //     "authorization": `Bearer`
-  //   };
-  // }
 }
